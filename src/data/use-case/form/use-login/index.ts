@@ -63,7 +63,7 @@ export const useLogin = (): {
       );
 
       setErrorMessage(null);
-      callToast.success('logado com sucesso');
+      callToast.success('Logado com sucesso');
       const path = getRedirectPath();
 
       dispatch(setRedirect({ path: null }));

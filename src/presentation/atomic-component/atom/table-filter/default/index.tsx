@@ -36,7 +36,7 @@ export const TableFilter: FC<TableFilterProps> = ({
   const [open, setOpen] = useState(false);
 
   const handleOrder = (): ReactElement => {
-    if (sort === 'DESC' && sortBy === filterName)
+    if (sort === 'desc' && sortBy === filterName)
       return (
         <IconButton
           onClick={(): void => {
@@ -44,25 +44,25 @@ export const TableFilter: FC<TableFilterProps> = ({
           }}
           title={'Alterar ordem'}
         >
-          <ArrowDownwardIcon className={'text-secondary hover:cursor-pointer'} />
+          <ArrowUpwardIcon className={'text-white hover:cursor-pointer'} />
         </IconButton>
       );
-    if (sort === 'ASC' && sortBy === filterName)
+    if (sort === 'asc' && sortBy === filterName)
       return (
         <IconButton
           onClick={(): void => {
-            if (onChangeSort) onChangeSort('DESC');
+            if (onChangeSort) onChangeSort('desc');
           }}
           title={'Alterar ordem'}
         >
-          <ArrowUpwardIcon className={'text-gray-500 hover:cursor-pointer'} />
+          <ArrowDownwardIcon className={'text-white hover:cursor-pointer'} />
         </IconButton>
       );
 
     return (
       <IconButton
         onClick={(): void => {
-          if (onChangeSort) onChangeSort('ASC');
+          if (onChangeSort) onChangeSort('asc');
         }}
         title={'Alterar ordem'}
       >
@@ -85,10 +85,10 @@ export const TableFilter: FC<TableFilterProps> = ({
                 <FilterAlt className={'hover:cursor-pointer text-primary'} />
               </IconButton>
 
-              {filterValue ? (
+              {filterValue || sortBy === filterName ? (
                 <div
                   className={
-                    'bg-primary p-1 w-5 h-5 flex justify-center items-center rounded-full text-white absolute right-[-3px] top-[-3px] z-10'
+                    'bg-primary p-1 w-5 h-5 flex justify-center items-center rounded-full text-gray-900 absolute right-[-3px] top-[-3px] z-10'
                   }
                 >
                   1
@@ -98,16 +98,18 @@ export const TableFilter: FC<TableFilterProps> = ({
           }
           setIsOpen={setOpen}
         >
-          <div className={'bg-white flex flex-col gap-6 p-4 py-6 min-h-max laptop:min-w-[300px]'}>
+          <div
+            className={'bg-gray-900 flex flex-col gap-6 p-4 py-6 min-h-max laptop:min-w-[300px]'}
+          >
             <div className={'flex items-center justify-between w-full'}>
-              <div className={'flex gap-3 items-center text-gray-500 font-bold'}>
+              <div className={'flex gap-3 items-center text-white font-bold'}>
                 <span className={'text-base'}>ﾠ{title}</span>
                 {notSorted ? null : handleOrder()}
               </div>
 
               <IconButton title={'Fechar'}>
                 <CloseIcon
-                  className={'hover:cursor-pointer text-gray-500'}
+                  className={'hover:cursor-pointer text-white'}
                   onClick={(): void => {
                     setOpen(false);
                   }}

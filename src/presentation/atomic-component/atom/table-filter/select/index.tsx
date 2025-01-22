@@ -49,7 +49,7 @@ export const SelectTableFilter: FC<SelectTableFilterProps> = ({
   const [open, setOpen] = useState(false);
 
   const handleOrder = (): ReactElement => {
-    if (sort === 'DESC' && sortBy === filterName)
+    if (sort === 'desc' && sortBy === filterName)
       return (
         <IconButton
           onClick={(): void => {
@@ -60,11 +60,11 @@ export const SelectTableFilter: FC<SelectTableFilterProps> = ({
           <ArrowDownwardIcon className={'text-gray-500 hover:cursor-pointer'} />
         </IconButton>
       );
-    if (sort === 'ASC' && sortBy === filterName)
+    if (sort === 'asc' && sortBy === filterName)
       return (
         <IconButton
           onClick={(): void => {
-            if (onChangeSort) onChangeSort('DESC');
+            if (onChangeSort) onChangeSort('desc');
           }}
           title={'Alterar ordem'}
         >
@@ -75,7 +75,7 @@ export const SelectTableFilter: FC<SelectTableFilterProps> = ({
     return (
       <IconButton
         onClick={(): void => {
-          if (onChangeSort) onChangeSort('ASC');
+          if (onChangeSort) onChangeSort('asc');
         }}
         title={'Alterar ordem'}
       >

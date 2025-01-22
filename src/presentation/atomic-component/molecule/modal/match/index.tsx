@@ -1,16 +1,16 @@
 import { Add, Edit } from '@mui/icons-material';
 import { Button } from '@mui/material';
-import { DefaultFunctionalityForm } from 'presentation/atomic-component/molecule/form';
+import { MatchForm } from 'presentation/atomic-component/molecule/form';
 import { Modal } from 'presentation/atomic-component/atom/modal';
 import { useModal } from 'data/hooks';
 import type { FC } from 'react';
-import type { Functionality } from 'domain/models';
+import type { Match } from 'domain/models/match';
 
-interface FunctionalityModalProps {
-  functionality?: Functionality;
+interface MatchModalProps {
+  match?: Match;
 }
 
-export const FunctionalityModal: FC<FunctionalityModalProps> = ({ functionality }) => {
+export const MatchModal: FC<MatchModalProps> = ({ match }) => {
   const { closeModal, isOpen, openModal } = useModal();
 
   return (
@@ -19,7 +19,7 @@ export const FunctionalityModal: FC<FunctionalityModalProps> = ({ functionality 
       isOpen={isOpen}
       openModal={openModal}
       openModalElement={
-        functionality ? (
+        match ? (
           <div
             className={
               'bg-gray-700 hover:bg-gray-550 border border-gray-500 rounded-md p-2 cursor-pointer'
@@ -35,14 +35,14 @@ export const FunctionalityModal: FC<FunctionalityModalProps> = ({ functionality 
             onClick={(): void => openModal()}
             startIcon={<Add />}
           >
-            Adicionar funcionalidade
+            Criar partida
           </Button>
         )
       }
       size={'medium'}
-      title={`${functionality ? 'Ediçao' : 'Cadastro'} de jogador`}
+      title={`${match ? 'Ediçao' : 'Cadastro'} de partida`}
     >
-      <DefaultFunctionalityForm closeModal={closeModal} functionality={functionality} isModal />
+      <MatchForm closeModal={closeModal} match={match} />
     </Modal>
   );
 };

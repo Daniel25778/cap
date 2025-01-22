@@ -2,6 +2,7 @@ export type QueryList =
   | 'default'
   | 'favoriteUserFunctionality'
   | 'functionality'
+  | 'match'
   | 'newFunctionality'
   | 'platform'
   | 'player'
@@ -9,6 +10,7 @@ export type QueryList =
 
 export enum QueryName {
   player = 'player',
+  match = 'match',
   default = 'default',
   favoriteUserFunctionality = 'favoriteUserFunctionality',
   functionality = 'functionality',

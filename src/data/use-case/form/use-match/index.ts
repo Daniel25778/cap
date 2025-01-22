@@ -1,8 +1,8 @@
+import { type MatchRequest, matchSchema } from 'validation/schema';
 import { QueryName, apiPaths } from 'main/config';
 import { api } from 'infra/http';
-import { platformSchema } from 'validation/schema';
+import { callToast, resolverError } from 'main/utils';
 import { queryClient } from 'infra/lib';
-import { resolverError } from 'main/utils';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import type {
@@ -13,23 +13,22 @@ import type {
   UseFormRegister,
   UseFormSetValue
 } from 'react-hook-form';
-import type { Platform } from 'domain/models';
-import type { PlatformRequest } from 'validation/schema';
+import type { Match } from 'domain/models/match';
 
-interface usePlatformProps {
+interface useMatchProps {
   closeModal: () => void;
-  platform?: Platform;
+  match?: Match;
 }
-export const usePlatform = ({
+export const useMatch = ({
   closeModal,
-  platform
-}: usePlatformProps): {
-  errors: FieldErrors<PlatformRequest>;
-  register: UseFormRegister<PlatformRequest>;
-  onSubmit: SubmitHandler<PlatformRequest>;
-  handleSubmit: UseFormHandleSubmit<PlatformRequest>;
-  getValues: UseFormGetValues<PlatformRequest>;
-  setValue: UseFormSetValue<PlatformRequest>;
+  match
+}: useMatchProps): {
+  errors: FieldErrors<MatchRequest>;
+  register: UseFormRegister<MatchRequest>;
+  onSubmit: SubmitHandler<MatchRequest>;
+  handleSubmit: UseFormHandleSubmit<MatchRequest>;
+  getValues: UseFormGetValues<MatchRequest>;
+  setValue: UseFormSetValue<MatchRequest>;
   isSubmitting: boolean;
 } => {
   const {
@@ -39,26 +38,28 @@ export const usePlatform = ({
     getValues,
 
     formState: { errors, isSubmitting }
-  } = useForm<PlatformRequest>({
-    resolver: yupResolver(platformSchema)
+  } = useForm<MatchRequest>({
+    resolver: yupResolver(matchSchema)
   });
 
-  const onSubmit: SubmitHandler<PlatformRequest> = async (data) => {
+  const onSubmit: SubmitHandler<MatchRequest> = async (data) => {
     try {
-      if (platform)
+      if (match)
         await api.put({
           body: data,
-          id: platform.id,
-          route: apiPaths.platform
+          id: match.id,
+          route: apiPaths.match
         });
       else
         await api.post({
           body: data,
-          route: apiPaths.platform
+          route: apiPaths.match
         });
 
       closeModal();
-      queryClient.invalidateQueries(QueryName.platform);
+
+      callToast.success('Partida salva com sucesso!');
+      queryClient.invalidateQueries(QueryName.match);
     } catch (error) {
       resolverError(error);
     }

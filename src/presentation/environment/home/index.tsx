@@ -14,9 +14,14 @@ export const HomeContent: FC = () => {
   const { playerFilter } = useAppSelector((state) => state.filter);
 
   const playerQuery = useFindPlayerQuery({
-    limit: 5,
+    limit: 9,
     page,
-    params: { name: playerFilter.name }
+    params: {
+      name: playerFilter.name,
+      nickname: playerFilter.nickname,
+      sort: playerFilter.sort,
+      sortBy: playerFilter.sortBy
+    }
   });
 
   return (

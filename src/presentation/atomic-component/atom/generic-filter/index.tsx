@@ -27,7 +27,7 @@ export const GenericFilter: FC<GenericFilterProps> = ({ filterValue, mask, onCha
         </InputAdornment>
       }
       StartIcon={
-        <InputAdornment position={'start'}>
+        <InputAdornment position={'end'}>
           <Search />
         </InputAdornment>
       }

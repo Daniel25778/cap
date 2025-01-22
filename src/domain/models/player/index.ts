@@ -1,5 +1,4 @@
-import type { Pagination } from 'domain/protocol';
-import type { SelectValues } from 'presentation/atomic-component/atom/select';
+import type { Pagination, Sort } from 'domain/protocol';
 
 export interface Player {
   id: string;
@@ -15,9 +14,11 @@ export interface Player {
 }
 
 export interface PlayerFilter {
-  name: SelectValues | '';
-  instagram: SelectValues | '';
-  totalKills: SelectValues | '';
+  name: string;
+  nickname: string;
+  instagram: string;
+  sort: Sort;
+  sortBy: 'instagram' | 'isMember' | 'isOnGuild' | 'name' | 'nickname' | 'totalKills' | null;
 }
 
 export interface UseFindPlayerQuery extends Pagination {

@@ -37,7 +37,7 @@ export const DateTableFilter: FC<DateTableFilterProps> = ({
   const [open, setOpen] = useState(false);
 
   const handleOrder = (): ReactElement => {
-    if (sort === 'DESC' && sortBy === filterName)
+    if (sort === 'desc' && sortBy === filterName)
       return (
         <IconButton
           onClick={(): void => {
@@ -45,35 +45,35 @@ export const DateTableFilter: FC<DateTableFilterProps> = ({
           }}
           title={'Alterar ordem'}
         >
-          <ArrowDownwardIcon className={'text-gray-500 hover:cursor-pointer'} />
+          <ArrowDownwardIcon className={'text-white hover:cursor-pointer'} />
         </IconButton>
       );
-    if (sort === 'ASC' && sortBy === filterName)
+    if (sort === 'asc' && sortBy === filterName)
       return (
         <IconButton
           onClick={(): void => {
-            if (onChangeSort) onChangeSort('DESC');
+            if (onChangeSort) onChangeSort('desc');
           }}
           title={'Alterar ordem'}
         >
-          <ArrowUpwardIcon className={'text-gray-500 hover:cursor-pointer'} />
+          <ArrowUpwardIcon className={'text-white hover:cursor-pointer'} />
         </IconButton>
       );
 
     return (
       <IconButton
         onClick={(): void => {
-          if (onChangeSort) onChangeSort('ASC');
+          if (onChangeSort) onChangeSort('asc');
         }}
         title={'Alterar ordem'}
       >
-        <SwapVertIcon className={'text-gray-500 hover:cursor-pointer'} />
+        <SwapVertIcon className={'text-white hover:cursor-pointer'} />
       </IconButton>
     );
   };
 
   return (
-    <div className={'flex justify-center gap-2 items-center w-full'}>
+    <div className={'flex  gap-2 items-center w-full'}>
       <span>{title}</span>
 
       <div>
@@ -82,13 +82,13 @@ export const DateTableFilter: FC<DateTableFilterProps> = ({
           openElement={
             <div className={'max-w-[40px] relative'}>
               <IconButton>
-                <FilterAlt />
+                <FilterAlt className={'text-white'} />
               </IconButton>
 
               {filterValue && (filterValue?.endDate !== null || filterValue?.startDate !== null) ? (
                 <div
                   className={
-                    'bg-primary p-1 w-5 h-5 flex justify-center items-center rounded-full text-white absolute right-[-3px] top-[-3px] z-10'
+                    'bg-primary p-1 w-5 h-5 flex justify-center items-center rounded-full text-black absolute right-[-3px] top-[-3px] z-10'
                   }
                 >
                   1
@@ -99,16 +99,18 @@ export const DateTableFilter: FC<DateTableFilterProps> = ({
           setIsOpen={setOpen}
           side={side ?? 'bottom'}
         >
-          <div className={'bg-white flex flex-col gap-6 p-4 py-6 min-h-max laptop:min-w-[300px]'}>
+          <div
+            className={'bg-gray-900 flex flex-col gap-6 p-4 py-6 min-h-max laptop:min-w-[300px]'}
+          >
             <div className={'flex items-center justify-between w-full'}>
-              <div className={'flex gap-3 items-center text-gray-500 font-bold'}>
-                <span className={'text-base'}>ﾠ{title}</span>
+              <div className={'flex gap-3 items-center text-white font-bold'}>
+                <span className={'text-base '}>ﾠ{title}</span>
                 {notSorted ? null : handleOrder()}
               </div>
 
               <IconButton title={'Fechar'}>
                 <CloseIcon
-                  className={'hover:cursor-pointer text-gray-500'}
+                  className={'hover:cursor-pointer text-white'}
                   onClick={(): void => {
                     setOpen(false);
                   }}

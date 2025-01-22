@@ -3,6 +3,7 @@ import { DeleteConfirmationModal } from 'presentation/atomic-component/molecule/
 import { PlayerModal } from 'presentation/atomic-component/molecule/modal';
 import { QueryName, apiPaths } from 'main/config';
 import { TableBody, TableRow } from '@mui/material';
+import { ThumbDownAlt, ThumbUp } from '@mui/icons-material';
 import type { FC } from 'react';
 import type { Player } from 'domain/models';
 
@@ -26,14 +27,35 @@ export const PlayerTableBody: FC<PlayerTableProps> = ({ items }) => {
       {items?.map((item) => (
         <TableRow key={item.id}>
           <BodyCell align={'left'} title={item.name} />
-          <BodyCell align={'center'} title={item.nickname} />
-          <BodyCell align={'center'} title={String(item.isMember)} />
-          <BodyCell align={'center'} title={String(item.isOnGuild)} />
-          <BodyCell align={'center'} title={String(item.instagram)} />
-          <BodyCell align={'center'} title={item.totalKills} />
+          <BodyCell align={'left'} title={item.instagram ? item.instagram : 'Não possui'} />
 
           <BodyCell
-            align={'center'}
+            align={'left'}
+            title={
+              item.isMember ? (
+                <ThumbUp className={'text-[#4eff37a8]'} />
+              ) : (
+                <ThumbDownAlt className={'text-[#ff0404e0]'} />
+              )
+            }
+          />
+
+          <BodyCell
+            align={'left'}
+            title={
+              item.isOnGuild ? (
+                <ThumbUp className={'text-[#4eff37a8]'} />
+              ) : (
+                <ThumbDownAlt className={'text-[#ff0404e0]'} />
+              )
+            }
+          />
+
+          <BodyCell align={'left'} title={item.instagram ? item.instagram : 'Não possui'} />
+          <BodyCell align={'left'} title={item.totalKills} />
+
+          <BodyCell
+            align={'left'}
             title={
               <div className={'flex justify-center gap-3'}>
                 <PlayerModal player={item} />

@@ -2,11 +2,11 @@ import { type FC, useRef } from 'react';
 import { IconRender } from 'presentation/atomic-component/atom';
 import { Link } from 'react-router-dom';
 import { Role } from 'domain/models';
+import { SidebarItems } from 'main/mock';
 import { SupervisorAccountOutlined } from '@mui/icons-material';
 import { getUser } from 'store/persist/selector';
 import { paths } from 'main/config';
 import { useAppSelector } from 'store';
-import { useFindPlatformQuery } from 'infra/cache';
 import { usePath } from 'data/hooks';
 
 interface LaptopSidebarProps {
@@ -18,8 +18,6 @@ export const LaptopSidebar: FC<LaptopSidebarProps> = ({ headerIsBig }) => {
   const { open } = useAppSelector((state) => state.sidebar);
   const { lastPathname, allPathname, firstPathname } = usePath();
   const user = getUser();
-
-  const platformQuery = useFindPlatformQuery({});
 
   return (
     <div
@@ -82,16 +80,16 @@ export const LaptopSidebar: FC<LaptopSidebarProps> = ({ headerIsBig }) => {
             </div>
           </Link>
 
-          {platformQuery.data?.content.map((sidebarItem) => (
-            <Link key={sidebarItem.id} to={paths.platform(sidebarItem.keyword)}>
+          {SidebarItems.map((sidebarItem) => (
+            <Link key={sidebarItem.id} to={sidebarItem.link}>
               <div className={'px-3 cursor-pointer'} title={sidebarItem.name}>
                 <div
                   className={`flex gap-4 items-center rounded-md ml-[-5px] pl-[5px] h-[40px] transition-[width] ease-in delay-75 ${
                     open ? 'w-full ' : 'w-[38px]'
-                  } ${allPathname.includes(sidebarItem.keyword) ? 'bg-gray-700 text-white' : 'text-white hover:bg-[#4e4e4e67]'}`}
+                  } ${allPathname.includes(sidebarItem.link) ? 'bg-gray-700 text-white' : 'text-white hover:bg-[#4e4e4e67]'}`}
                 >
                   <IconRender
-                    name={sidebarItem.image}
+                    name={sidebarItem.icon}
                     sx={{
                       fontSize: '1.65rem'
                     }}
@@ -100,7 +98,7 @@ export const LaptopSidebar: FC<LaptopSidebarProps> = ({ headerIsBig }) => {
                   <span
                     className={`h-[1.5rem] font-semibold transition-[width] ease-in-out overflow-hidden cursor-pointer ${
                       open ? 'w-[200px]' : 'w-[0px]'
-                    } ${allPathname.includes(sidebarItem.keyword) ? 'text-white' : 'text-white'}`}
+                    } ${allPathname.includes(sidebarItem.link) ? 'text-white' : 'text-white'}`}
                   >
                     {sidebarItem.name}
                   </span>

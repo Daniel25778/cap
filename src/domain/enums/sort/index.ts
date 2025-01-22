@@ -1,1 +1,1 @@
-export type Sort = 'ASC' | 'DESC' | null;
+export type Sort = 'asc' | 'desc' | null;

@@ -1,4 +1,5 @@
 import { HeaderCell } from 'presentation/atomic-component/atom';
+import { OrderTableFilter } from 'presentation/atomic-component/atom/table-filter/order';
 import { TableFilter } from 'presentation/atomic-component/atom/table-filter';
 import { TableHead, TableRow } from '@mui/material';
 import { setPlayerFilter } from 'store/filters/slice';
@@ -11,7 +12,7 @@ export const PlayerTableHeader: FC = () => {
 
   const dispatch = useDispatch();
 
-  const updateValue = (name: 'instagram' | 'name' | 'totalKills', value: unknown): void => {
+  const updateValue = (name: 'instagram' | 'name' | 'nickname', value: unknown): void => {
     dispatch(setPlayerFilter({ [name]: value }));
   };
 
@@ -19,8 +20,8 @@ export const PlayerTableHeader: FC = () => {
     <TableHead>
       <TableRow>
         <HeaderCell
-          align={'center'}
-          minWidth={100}
+          align={'left'}
+          minWidth={200}
           title={
             <TableFilter
               filterName={'name'}
@@ -28,17 +29,105 @@ export const PlayerTableHeader: FC = () => {
               onChange={(value): void => {
                 updateValue('name', value);
               }}
+              onChangeSort={(sort): void => {
+                dispatch(setPlayerFilter({ sort, sortBy: sort ? 'name' : null }));
+              }}
+              sort={playerFilter.sort}
+              sortBy={playerFilter.sortBy}
               title={'Nome'}
             />
           }
         />
 
-        <HeaderCell align={'center'} minWidth={200} title={'Apelido'} />
-        <HeaderCell align={'center'} minWidth={200} title={'Membro'} />
-        <HeaderCell align={'center'} minWidth={200} title={'Guilda'} />
-        <HeaderCell align={'center'} minWidth={200} title={'Instagram'} />
-        <HeaderCell align={'center'} minWidth={200} title={'Kills'} />
-        <HeaderCell align={'center'} minWidth={200} title={'Ações'} />
+        <HeaderCell
+          align={'left'}
+          minWidth={200}
+          title={
+            <TableFilter
+              filterName={'nickname'}
+              filterValue={playerFilter.nickname as string}
+              onChange={(value): void => {
+                updateValue('nickname', value);
+              }}
+              onChangeSort={(sort): void => {
+                dispatch(setPlayerFilter({ sort, sortBy: sort ? 'nickname' : null }));
+              }}
+              sort={playerFilter.sort}
+              sortBy={playerFilter.sortBy}
+              title={'Apelido'}
+            />
+          }
+        />
+
+        <HeaderCell
+          align={'left'}
+          minWidth={200}
+          title={
+            <OrderTableFilter
+              filterName={'isMember'}
+              onChangeSort={(sort): void => {
+                dispatch(setPlayerFilter({ sort, sortBy: sort ? 'isMember' : null }));
+              }}
+              sort={playerFilter.sort}
+              sortBy={playerFilter.sortBy}
+              title={'Membro'}
+            />
+          }
+        />
+
+        <HeaderCell
+          align={'left'}
+          minWidth={200}
+          title={
+            <OrderTableFilter
+              filterName={'isOnGuild'}
+              onChangeSort={(sort): void => {
+                dispatch(setPlayerFilter({ sort, sortBy: sort ? 'isOnGuild' : null }));
+              }}
+              sort={playerFilter.sort}
+              sortBy={playerFilter.sortBy}
+              title={'Guilda'}
+            />
+          }
+        />
+
+        <HeaderCell
+          align={'left'}
+          minWidth={200}
+          title={
+            <TableFilter
+              filterName={'instagram'}
+              filterValue={playerFilter.instagram as string}
+              onChange={(value): void => {
+                updateValue('instagram', value);
+              }}
+              onChangeSort={(sort): void => {
+                dispatch(setPlayerFilter({ sort, sortBy: sort ? 'instagram' : null }));
+              }}
+              sort={playerFilter.sort}
+              sortBy={playerFilter.sortBy}
+              title={'Instagram'}
+            />
+          }
+        />
+
+        <HeaderCell
+          align={'left'}
+          minWidth={100}
+          title={
+            <OrderTableFilter
+              filterName={'totalKills'}
+              onChangeSort={(sort): void => {
+                dispatch(setPlayerFilter({ sort, sortBy: sort ? 'totalKills' : null }));
+              }}
+              sort={playerFilter.sort}
+              sortBy={playerFilter.sortBy}
+              title={'Kills'}
+            />
+          }
+        />
+
+        <HeaderCell align={'center'} minWidth={150} title={'Ações'} />
       </TableRow>
     </TableHead>
   );

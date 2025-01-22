@@ -54,9 +54,9 @@ export const DateRangeInput: FC<DatePickerProps> = ({
               setIsFirst(true);
             }}
           >
-            <div>
+            <div className={'text-white'}>
               {value.length === 0 ? (
-                <span className={'text-gray-550'}>{label}</span>
+                <span className={'text-white'}>{label}</span>
               ) : (
                 `${formatDate(value[0]?.startDate ?? '')} - ${value[0]?.endDate ? formatDate(value[0]?.endDate) : 'Hoje'}`
               )}
@@ -75,12 +75,12 @@ export const DateRangeInput: FC<DatePickerProps> = ({
                     zIndex: '50'
                   }}
                 >
-                  <Close color={error ? 'error' : undefined} />
+                  <Close className={'text-white'} />
                 </IconButton>
               ) : null}
 
               <IconButton>
-                <DateRangeIcon color={error ? 'error' : undefined} />
+                <DateRangeIcon className={'text-white'} />
               </IconButton>
             </div>
           </div>
@@ -108,7 +108,7 @@ export const DateRangeInput: FC<DatePickerProps> = ({
               if (isFirst) setIsFirst(false);
             }
           }}
-          rangeColors={[colors.primary]}
+          rangeColors={[colors.black]}
           ranges={
             value.length > 0
               ? [
