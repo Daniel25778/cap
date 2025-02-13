@@ -6,11 +6,11 @@ import { useModal } from 'data/hooks';
 import type { FC } from 'react';
 import type { Match } from 'domain/models/match';
 
-interface MatchModalProps {
+interface TeamModalProps {
   match?: Match;
 }
 
-export const MatchModal: FC<MatchModalProps> = ({ match }) => {
+export const TeamModal: FC<TeamModalProps> = ({ match }) => {
   const { closeModal, isOpen, openModal } = useModal();
 
   return (
@@ -35,12 +35,12 @@ export const MatchModal: FC<MatchModalProps> = ({ match }) => {
             onClick={(): void => openModal()}
             startIcon={<Add />}
           >
-            Criar partida
+            Cadastrar time
           </Button>
         )
       }
       size={'medium'}
-      title={`${match ? 'Edição' : 'Cadastro'} de partida`}
+      title={`${match ? 'Edição' : 'Cadastro'} de time`}
     >
       <MatchForm closeModal={closeModal} match={match} />
     </Modal>

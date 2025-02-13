@@ -9,11 +9,11 @@ import { formatDate } from 'main/utils';
 import type { FC } from 'react';
 import type { Match } from 'domain/models/match';
 
-interface MatchTableProps {
+interface TeamTableProps {
   items: Match[];
 }
 
-export const MatchTableBody: FC<MatchTableProps> = ({ items }) => {
+export const TeamTableBody: FC<TeamTableProps> = ({ items }) => {
   return (
     <TableBody className={'relative'}>
       {items?.length === 0 ? (
@@ -21,7 +21,7 @@ export const MatchTableBody: FC<MatchTableProps> = ({ items }) => {
           <BodyCell
             align={'center'}
             colSpan={7}
-            title={<div className={' p-4 font-semibold text-xl'}>Nenhum time encontrado</div>}
+            title={<div className={' p-4 font-semibold text-xl'}>Nenhuma partida encontrado</div>}
           />
         </TableRow>
       ) : null}

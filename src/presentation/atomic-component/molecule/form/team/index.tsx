@@ -7,12 +7,12 @@ import { useMatch } from 'data/use-case';
 import type { Match } from 'domain/models/match';
 import type { SelectValues } from 'presentation/atomic-component/atom/select';
 
-interface MatchFormProps {
+interface TeamFormProps {
   match?: Match;
   closeModal: () => void;
 }
 
-export const MatchForm: FC<MatchFormProps> = ({ closeModal, match }) => {
+export const TeamForm: FC<TeamFormProps> = ({ closeModal, match }) => {
   const { handleSubmit, onSubmit, register, errors, isSubmitting, setValue } = useMatch({
     closeModal,
     match

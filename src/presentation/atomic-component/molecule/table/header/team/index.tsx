@@ -7,7 +7,7 @@ import { useAppSelector } from 'store';
 import { useDispatch } from 'react-redux';
 import type { FC } from 'react';
 
-export const MatchTableHeader: FC = () => {
+export const TeamTableHeader: FC = () => {
   const { matchFilter } = useAppSelector((state) => state.filter);
 
   const dispatch = useDispatch();

@@ -12,3 +12,4 @@ export * from './scroll-top';
 export * from './random';
 export * from './validate-form';
 export * from './validate';
+export * from './translate';

@@ -4,7 +4,7 @@ export const SidebarItems = [
   {
     icon: 'EmojiEvents',
     id: 2,
-    link: paths.partida,
+    link: paths.match,
     name: 'Partida'
   }
 ];

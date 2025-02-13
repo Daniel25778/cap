@@ -2,7 +2,8 @@
 export enum routePaths {
   login = '/',
   panel = '/painel',
-  partida = '/partidas',
+  match = '/partida',
+  matchDetails = '/partida/:matchId',
   functionalityTest = '/painel/teste-de-funcinalidade/:functionalityKeyword',
   home = '/plataforma',
   platform = '/plataforma/:platformKeyword',
@@ -15,13 +16,9 @@ export enum routePaths {
 export const paths = {
   login: '/',
   home: '/plataforma',
-  partida: '/partidas',
+  match: 'partida',
   panel: '/painel',
-  functionalityTest: (functionalityKeyword: string): string =>
-    `/painel/teste-de-funcinalidade/${functionalityKeyword}`,
-  platform: (platformKeyword: string): string => `/plataforma/${platformKeyword}`,
-  functionality: (platformKeyword: string, functionalityKeyword: string): string =>
-    `/plataforma/${platformKeyword}/${functionalityKeyword}`,
+  matchDetails: (matchId: string): string => `/partida/${matchId}`,
   profile: '/perfil',
   recoverPassword: '/recuperar-senha',
   register: '/cadastro'

@@ -7,3 +7,8 @@ export const useFindMatchQuery = ({
   ...props
 }: useFindQueryProps): UseQueryResult<UseFindMatchQuery> =>
   useFindQuery<UseFindMatchQuery>({ ...props, route: 'match' });
+
+export const useFindOneMatchQuery = ({
+  ...props
+}: useFindQueryProps & { id: string }): UseQueryResult<UseFindMatchQuery> =>
+  useFindQuery<UseFindMatchQuery>({ ...props, route: 'match' });
