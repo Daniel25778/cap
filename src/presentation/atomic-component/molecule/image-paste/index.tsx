@@ -1,0 +1,93 @@
+// eslint-disable-next-line import/no-unresolved
+import { resolverError } from 'main/utils';
+import { useRef, useState } from 'react';
+import type { ClipboardEvent, FC } from 'react';
+import type { MatchTeam } from 'domain/models/match';
+
+const ImagePasteProcessor: FC = () => {
+  const [image, setImage] = useState<string | null>(null);
+  const [matchData, setMatchData] = useState<MatchTeam | null>(null);
+  const [loading, setLoading] = useState(false);
+  const inputRef = useRef<HTMLDivElement>(null);
+
+  const formatExtractedText = (text: string): MatchTeam => {
+    // Exemplo fictício (ajuste conforme sua necessidade)
+  };
+  const processImage = async (file: File): Promise<void> => {
+    setLoading(true);
+    try {
+      const formData = new FormData();
+
+      console.log('zzzzz');
+
+      formData.append('image', file);
+
+      const response = await fetch('http://localhost:8000/extract-text', {
+        body: formData,
+        method: 'POST'
+      });
+
+      if (!response.ok) throw new Error('Erro ao processar a imagem');
+
+      const data = await response.json();
+
+      console.log('Texto extraído:', data.text);
+
+      setMatchData(formatExtractedText(data.text));
+    } catch (error) {
+      resolverError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePaste = (event: ClipboardEvent<HTMLDivElement>): void => {
+    const { items } = event.clipboardData;
+
+    for (const item of items)
+      if (item.type.startsWith('image')) {
+        const file = item.getAsFile();
+
+        if (file) {
+          const reader = new FileReader();
+
+          reader.onload = (e): void => {
+            setImage(e.target?.result as string);
+            processImage(file);
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+  };
+
+  return (
+    <div>
+      {image ? (
+        <img
+          alt={'Preview'}
+          className={'w-full max-h-[200px] object-contain'}
+          onClick={() => setImage(null)}
+          src={image}
+        />
+      ) : (
+        <div
+          className={
+            'flex items-center justify-center w-full h-[200px] border-2 border-dashed border-gray-300'
+          }
+          onPaste={handlePaste}
+          ref={inputRef}
+        >
+          <p className={'text-white text-center text-base font-semibold'}>
+            Cole (Ctrl + V) uma imagem aqui
+          </p>
+        </div>
+      )}
+
+      {loading ? (
+        <p className={'text-white text-center text-base '}>Processando imagem...</p>
+      ) : null}
+    </div>
+  );
+};
+
+export default ImagePasteProcessor;

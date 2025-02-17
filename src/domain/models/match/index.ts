@@ -1,10 +1,32 @@
 import type { DateFilter, Pagination, Sort } from 'domain/protocol';
 import type { MatchType } from 'domain/enums';
+import type { Player } from 'domain/models/player';
+
+export interface PlayerTeam {
+  id: string;
+  kills: number;
+  player: Player;
+}
+
+export interface MatchTeam {
+  id: string;
+  position: number;
+  playerTeams: PlayerTeam[];
+}
 
 export interface Match {
   id: string;
   name: string;
   description: string;
+  type: MatchType;
+  createdAt: Date;
+}
+
+export interface MatchOne {
+  id: string;
+  name: string;
+  description: string;
+  matchTeam: MatchTeam[];
   type: MatchType;
   createdAt: Date;
 }
@@ -19,4 +41,8 @@ export interface MatchFilter {
 
 export interface UseFindMatchQuery extends Pagination {
   content: Match[];
+}
+
+export interface UseFindOneMatchQuery extends Pagination {
+  content: MatchOne;
 }

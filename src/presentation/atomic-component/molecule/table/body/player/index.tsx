@@ -1,17 +1,18 @@
 import { BodyCell } from 'presentation/atomic-component/atom';
+import { Checkbox, TableBody, TableRow } from '@mui/material';
 import { DeleteConfirmationModal } from 'presentation/atomic-component/molecule/modal/action-confirmation';
 import { PlayerModal } from 'presentation/atomic-component/molecule/modal';
 import { QueryName, apiPaths } from 'main/config';
-import { TableBody, TableRow } from '@mui/material';
 import { ThumbDownAlt, ThumbUp } from '@mui/icons-material';
 import type { FC } from 'react';
 import type { Player } from 'domain/models';
 
 interface PlayerTableProps {
   items: Player[];
+  rowWithCheckbox?: boolean;
 }
 
-export const PlayerTableBody: FC<PlayerTableProps> = ({ items }) => {
+export const PlayerTableBody: FC<PlayerTableProps> = ({ items, rowWithCheckbox }) => {
   return (
     <TableBody className={'relative'}>
       {items?.length === 0 ? (
@@ -26,6 +27,7 @@ export const PlayerTableBody: FC<PlayerTableProps> = ({ items }) => {
 
       {items?.map((item) => (
         <TableRow key={item.id}>
+          {rowWithCheckbox ? <BodyCell align={'left'} title={<Checkbox />} /> : null}
           <BodyCell align={'left'} title={item.name} />
           <BodyCell align={'left'} title={item.instagram ? item.instagram : 'Não possui'} />
 

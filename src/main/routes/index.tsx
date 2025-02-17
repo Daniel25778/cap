@@ -1,4 +1,9 @@
-import { AuthContent, HomeContent, MatchDetailsContent } from 'presentation/environment';
+import {
+  AuthContent,
+  HomeContent,
+  MatchDetailsContent,
+  TeamRegisterContent
+} from 'presentation/environment';
 import { AuthTemplate, MainTemplate } from 'presentation/atomic-component/template';
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 import { LoginRoute, PrivateRoute } from 'main/proxies';
@@ -24,6 +29,7 @@ const RouterConfig: FC = () => (
             <Route element={<HomeContent />} path={routePaths.home} />
             <Route element={<MatchContent />} path={routePaths.match} />
             <Route element={<MatchDetailsContent />} path={routePaths.matchDetails} />
+            <Route element={<TeamRegisterContent />} path={routePaths.teamRegister} />
           </Route>
         </Route>
 

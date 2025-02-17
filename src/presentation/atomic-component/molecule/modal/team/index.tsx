@@ -1,8 +1,9 @@
 import { Add, Edit } from '@mui/icons-material';
 import { Button } from '@mui/material';
-import { MatchForm } from 'presentation/atomic-component/molecule/form';
 import { Modal } from 'presentation/atomic-component/atom/modal';
+import { TeamForm } from 'presentation/atomic-component/molecule/form';
 import { useModal } from 'data/hooks';
+import ImagePasteProcessor from 'presentation/atomic-component/molecule/image-paste';
 import type { FC } from 'react';
 import type { Match } from 'domain/models/match';
 
@@ -42,7 +43,8 @@ export const TeamModal: FC<TeamModalProps> = ({ match }) => {
       size={'medium'}
       title={`${match ? 'Edição' : 'Cadastro'} de time`}
     >
-      <MatchForm closeModal={closeModal} match={match} />
+      {match ? null : <ImagePasteProcessor />}
+      <TeamForm closeModal={closeModal} match={match} />
     </Modal>
   );
 };

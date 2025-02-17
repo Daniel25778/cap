@@ -8,9 +8,10 @@ import type { Player } from 'domain/models';
 interface PlayerFormProps {
   player?: Player;
   closeModal: () => void;
+  rowWithCheckbox?: 'totalKills' | 'withoutKills';
 }
 
-export const PlayerForm: FC<PlayerFormProps> = ({ closeModal, player }) => {
+export const PlayerForm: FC<PlayerFormProps> = ({ closeModal, player, rowWithCheckbox }) => {
   const { handleSubmit, onSubmit, register, errors, isSubmitting, setValue, getValues } = usePlayer(
     {
       closeModal,
@@ -37,6 +38,10 @@ export const PlayerForm: FC<PlayerFormProps> = ({ closeModal, player }) => {
         register={register('name')}
         required
       />
+
+      {rowWithCheckbox === 'totalKills' ? (
+        <LabelInput label={'Total de kills'} register={register('totalKills')} />
+      ) : null}
 
       <LabelInput
         error={!!errors.instagram}

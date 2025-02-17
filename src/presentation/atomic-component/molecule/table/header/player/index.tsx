@@ -1,13 +1,17 @@
+import { Checkbox, TableHead, TableRow } from '@mui/material';
 import { HeaderCell } from 'presentation/atomic-component/atom';
 import { OrderTableFilter } from 'presentation/atomic-component/atom/table-filter/order';
 import { TableFilter } from 'presentation/atomic-component/atom/table-filter';
-import { TableHead, TableRow } from '@mui/material';
 import { setPlayerFilter } from 'store/filters/slice';
 import { useAppSelector } from 'store';
 import { useDispatch } from 'react-redux';
 import type { FC } from 'react';
 
-export const PlayerTableHeader: FC = () => {
+interface PlayerTableHeaderProps {
+  headerCellWithCheckbox?: boolean;
+}
+
+export const PlayerTableHeader: FC<PlayerTableHeaderProps> = ({ headerCellWithCheckbox }) => {
   const { playerFilter } = useAppSelector((state) => state.filter);
 
   const dispatch = useDispatch();
@@ -19,6 +23,8 @@ export const PlayerTableHeader: FC = () => {
   return (
     <TableHead>
       <TableRow>
+        {headerCellWithCheckbox ? <HeaderCell align={'left'} title={<Checkbox />} /> : null}
+
         <HeaderCell
           align={'left'}
           minWidth={200}
