@@ -2,17 +2,24 @@ import { Checkbox, TableHead, TableRow } from '@mui/material';
 import { HeaderCell } from 'presentation/atomic-component/atom';
 import { OrderTableFilter } from 'presentation/atomic-component/atom/table-filter/order';
 import { TableFilter } from 'presentation/atomic-component/atom/table-filter';
+import { addPlayer, removePlayer } from 'store/player/slice';
 import { setPlayerFilter } from 'store/filters/slice';
 import { useAppSelector } from 'store';
 import { useDispatch } from 'react-redux';
 import type { FC } from 'react';
+import type { Player } from 'domain/models';
 
 interface PlayerTableHeaderProps {
   headerCellWithCheckbox?: boolean;
+  items: Player[];
 }
 
-export const PlayerTableHeader: FC<PlayerTableHeaderProps> = ({ headerCellWithCheckbox }) => {
+export const PlayerTableHeader: FC<PlayerTableHeaderProps> = ({
+  headerCellWithCheckbox,
+  items
+}) => {
   const { playerFilter } = useAppSelector((state) => state.filter);
+  const { playerSelected } = useAppSelector((state) => state.player);
 
   const dispatch = useDispatch();
 
@@ -23,7 +30,22 @@ export const PlayerTableHeader: FC<PlayerTableHeaderProps> = ({ headerCellWithCh
   return (
     <TableHead>
       <TableRow>
-        {headerCellWithCheckbox ? <HeaderCell align={'left'} title={<Checkbox />} /> : null}
+        {headerCellWithCheckbox ? (
+          <HeaderCell
+            align={'left'}
+            title={
+              <Checkbox
+                checked={items.every((player) => {
+                  return playerSelected[player.id];
+                })}
+                onChange={(event): void => {
+                  if (event.target.checked) dispatch(addPlayer(items));
+                  else dispatch(removePlayer(items?.map((item) => item.id) ?? []));
+                }}
+              />
+            }
+          />
+        ) : null}
 
         <HeaderCell
           align={'left'}

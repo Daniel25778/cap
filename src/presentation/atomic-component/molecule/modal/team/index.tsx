@@ -1,17 +1,11 @@
-import { Add, Edit } from '@mui/icons-material';
+import { Add } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { Modal } from 'presentation/atomic-component/atom/modal';
 import { TeamForm } from 'presentation/atomic-component/molecule/form';
 import { useModal } from 'data/hooks';
-import ImagePasteProcessor from 'presentation/atomic-component/molecule/image-paste';
 import type { FC } from 'react';
-import type { Match } from 'domain/models/match';
 
-interface TeamModalProps {
-  match?: Match;
-}
-
-export const TeamModal: FC<TeamModalProps> = ({ match }) => {
+export const TeamModal: FC = () => {
   const { closeModal, isOpen, openModal } = useModal();
 
   return (
@@ -20,31 +14,18 @@ export const TeamModal: FC<TeamModalProps> = ({ match }) => {
       isOpen={isOpen}
       openModal={openModal}
       openModalElement={
-        match ? (
-          <div
-            className={
-              'bg-gray-700 hover:bg-gray-550 border border-gray-500 rounded-md p-2 cursor-pointer'
-            }
-            onClick={openModal}
-          >
-            <Edit />
-          </div>
-        ) : (
-          <Button
-            className={'w-full tablet:max-w-[315px]'}
-            color={'secondary'}
-            onClick={(): void => openModal()}
-            startIcon={<Add />}
-          >
-            Cadastrar time
-          </Button>
-        )
+        <Button
+          className={'w-full tablet:max-w-[50px]'}
+          color={'secondary'}
+          onClick={(): void => openModal()}
+        >
+          <Add />
+        </Button>
       }
       size={'medium'}
-      title={`${match ? 'Edição' : 'Cadastro'} de time`}
+      title={'Cadastro de time'}
     >
-      {match ? null : <ImagePasteProcessor />}
-      <TeamForm closeModal={closeModal} match={match} />
+      <TeamForm closeModal={closeModal} />
     </Modal>
   );
 };

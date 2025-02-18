@@ -36,7 +36,7 @@ export const HomeContent: FC = () => {
 
             <TableTemplate
               tableBody={<PlayerTableBody items={playerQuery.data.content} />}
-              tableHeader={<PlayerTableHeader />}
+              tableHeader={<PlayerTableHeader items={playerQuery.data.content} />}
             />
 
             <Pagination

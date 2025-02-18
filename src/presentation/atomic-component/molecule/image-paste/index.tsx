@@ -1,4 +1,6 @@
 // eslint-disable-next-line import/no-unresolved
+import { Button } from '@mui/material';
+import { Delete } from '@mui/icons-material';
 import { resolverError } from 'main/utils';
 import { useRef, useState } from 'react';
 import type { ClipboardEvent, FC } from 'react';
@@ -63,16 +65,22 @@ const ImagePasteProcessor: FC = () => {
   return (
     <div>
       {image ? (
-        <img
-          alt={'Preview'}
-          className={'w-full max-h-[200px] object-contain'}
-          onClick={() => setImage(null)}
-          src={image}
-        />
+        <div className={'relative group w-full h-[300px]'}>
+          <img alt={'Imagem'} className={'w-full h-full object-contain '} src={image} />
+
+          <Button
+            className={
+              'absolute bg-black bg-opacity-50  text-white opacity-0 group-hover:opacity-100  top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 '
+            }
+            onClick={() => setImage(null)}
+          >
+            <Delete />
+          </Button>
+        </div>
       ) : (
         <div
           className={
-            'flex items-center justify-center w-full h-[200px] border-2 border-dashed border-gray-300'
+            'flex items-center justify-center w-full h-[300px] border-2 border-dashed border-gray-300'
           }
           onPaste={handlePaste}
           ref={inputRef}

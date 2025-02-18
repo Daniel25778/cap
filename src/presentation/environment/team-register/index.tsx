@@ -16,7 +16,6 @@ export const TeamRegisterContent: FC = () => {
   // const { matchId } = useParams();
 
   const { playerFilter } = useAppSelector((state) => state.filter);
-
   const playerQuery = useFindPlayerQuery({
     limit: 9,
     page,
@@ -43,12 +42,14 @@ export const TeamRegisterContent: FC = () => {
             <div className={'flex flex-col gap-6 max-w-[1500px] w-full mx-auto'}>
               <div className={'flex justify-between'}>
                 <h2 className={'font-semibold text-2xl'}>Jogadores time 1</h2>
-                <PlayerModal rowWithCheckbox={'totalKills'} />
+                <PlayerModal />
               </div>
 
               <TableTemplate
                 tableBody={<PlayerTableBody items={playerQuery.data.content} rowWithCheckbox />}
-                tableHeader={<PlayerTableHeader headerCellWithCheckbox />}
+                tableHeader={
+                  <PlayerTableHeader headerCellWithCheckbox items={playerQuery.data.content} />
+                }
               />
 
               <Pagination

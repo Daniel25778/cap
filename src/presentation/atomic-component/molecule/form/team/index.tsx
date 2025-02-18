@@ -1,16 +1,15 @@
 import { type FC, useEffect } from 'react';
 import { FormButton, LabelInput } from 'presentation/atomic-component/atom';
-import { useMatch } from 'data/use-case';
 import { validate } from 'main/utils';
-import type { Match } from 'domain/models/match';
+import type { MatchOne } from 'domain/models/match';
 
 interface TeamFormProps {
-  match?: Match;
+  match?: MatchOne;
   closeModal: () => void;
 }
 
 export const TeamForm: FC<TeamFormProps> = ({ closeModal, match }) => {
-  const { handleSubmit, onSubmit, register, errors, isSubmitting, setValue } = useMatch({
+  const { handleSubmit, onSubmit, register, errors, isSubmitting, setValue } = useMatchOne({
     closeModal,
     match
   });
@@ -20,17 +19,17 @@ export const TeamForm: FC<TeamFormProps> = ({ closeModal, match }) => {
   // const { handleChangePage, page } = usePagination();
 
   // const [playerSelected, setPlayerSelected] = useState<SelectValues | null>(
-  //   match?.type
+  //   team?.type
   //     ? {
-  //         label: match.type,
-  //         value: match.id
+  //         label: team.type,
+  //         value: team.id
   //       }
   //     : null
   // );
 
   useEffect(() => {
-    if (match) setValue('name', match.name, validate);
-  }, [match]);
+    if (match) setValue('name', team.name, validate);
+  }, [team]);
 
   return (
     <>

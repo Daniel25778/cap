@@ -123,15 +123,20 @@ export const MaterialUIProvider: FC<Children> = ({ children }: Children) => {
           }
         ]
       },
-
       MuiCheckbox: {
         styleOverrides: {
           root: {
-            color: 'white'
+            '&.Mui-checked': {
+              color: '#fff'
+            },
+            '&:hover': {
+              backgroundColor: 'rgba(255, 255, 255, 0.2)'
+            },
+            color: 'white',
+            transition: 'all 0.3s ease'
           }
         }
       },
-
       MuiChip: {
         defaultProps: {
           variant: 'filled'

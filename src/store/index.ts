@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { filterReducer } from './filters/slice';
 import { persistReducer, persistStore } from 'redux-persist';
 import { persistReducer as persistedReducer } from './persist/slice';
+import { playerReducer } from './player/slice';
 import { redirectReducer } from './redirect/slice';
 import { sidebarReducer } from './sidebar/slice';
 import { useSelector } from 'react-redux';
@@ -19,6 +20,7 @@ const persisted = persistReducer(persistConfig, persistedReducer);
 const rootReducer = combineReducers({
   filter: filterReducer,
   persist: persisted,
+  player: playerReducer,
   redirect: redirectReducer,
   sidebar: sidebarReducer
 });

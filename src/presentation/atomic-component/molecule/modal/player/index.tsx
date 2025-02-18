@@ -8,10 +8,9 @@ import type { Player } from 'domain/models';
 
 interface PlayerModalProps {
   player?: Player;
-  rowWithCheckbox?: 'totalKills' | 'withoutKills';
 }
 
-export const PlayerModal: FC<PlayerModalProps> = ({ player, rowWithCheckbox }) => {
+export const PlayerModal: FC<PlayerModalProps> = ({ player }) => {
   const { closeModal, isOpen, openModal } = useModal();
 
   return (
@@ -43,7 +42,7 @@ export const PlayerModal: FC<PlayerModalProps> = ({ player, rowWithCheckbox }) =
       size={'medium'}
       title={`${player ? 'Ediçao' : 'Cadastro'} de jogador`}
     >
-      <PlayerForm closeModal={closeModal} player={player} rowWithCheckbox={rowWithCheckbox} />
+      <PlayerForm closeModal={closeModal} player={player} />
     </Modal>
   );
 };
