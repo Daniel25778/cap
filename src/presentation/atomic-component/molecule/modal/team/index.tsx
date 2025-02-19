@@ -5,7 +5,11 @@ import { TeamForm } from 'presentation/atomic-component/molecule/form';
 import { useModal } from 'data/hooks';
 import type { FC } from 'react';
 
-export const TeamModal: FC = () => {
+interface TeamModalProps {
+  matchId: string;
+}
+
+export const TeamModal: FC<TeamModalProps> = ({ matchId }) => {
   const { closeModal, isOpen, openModal } = useModal();
 
   return (
@@ -22,10 +26,10 @@ export const TeamModal: FC = () => {
           <Add />
         </Button>
       }
-      size={'medium'}
-      title={'Cadastro de time'}
+      size={'small'}
+      title={'Cadastro de times'}
     >
-      <TeamForm closeModal={closeModal} />
+      <TeamForm closeModal={closeModal} matchId={matchId} />
     </Modal>
   );
 };

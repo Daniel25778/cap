@@ -12,10 +12,11 @@ import type { Player } from 'domain/models';
 
 interface PlayerTableProps {
   items: Player[];
+  matchId?: string;
   rowWithCheckbox?: boolean;
 }
 
-export const PlayerTableBody: FC<PlayerTableProps> = ({ items, rowWithCheckbox }) => {
+export const PlayerTableBody: FC<PlayerTableProps> = ({ items, rowWithCheckbox, matchId }) => {
   const { playerSelected } = useAppSelector((state) => state.player);
 
   const dispatch = useDispatch();
@@ -100,17 +101,17 @@ export const PlayerTableBody: FC<PlayerTableProps> = ({ items, rowWithCheckbox }
       </TableBody>
 
       <div
-        className={`z-10 ${
+        className={`z-10 transition-all  ${
           Object.entries(playerSelected).length > 0
             ? 'fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[800px]'
-            : 'hidden'
+            : 'hidden '
         }`}
       >
         <div className={' bg-white rounded-t-2xl'}>
           <div className={'flex w-full p-5 justify-center items-center gap-5'}>
             <CheckCircle className={' text-black'} />
             <h2 className={'text-black'}>{Object.entries(playerSelected).length} selecionado(s)</h2>
-            <TeamModal />
+            <TeamModal matchId={matchId || ''} />
           </div>
         </div>
       </div>

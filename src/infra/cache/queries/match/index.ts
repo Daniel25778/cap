@@ -1,5 +1,5 @@
 import { useFindQuery } from 'infra/cache/queries/default-query';
-import type { UseFindMatchQuery, UseFindOneMatchQuery } from 'domain/models/match';
+import type { MatchOne, UseFindMatchQuery } from 'domain/models/match';
 import type { UseQueryResult } from 'react-query';
 import type { useFindQueryProps } from 'infra/cache/queries/default-query';
 
@@ -10,5 +10,5 @@ export const useFindMatchQuery = ({
 
 export const useFindOneMatchQuery = ({
   ...props
-}: useFindQueryProps & { id: string }): UseQueryResult<UseFindOneMatchQuery> =>
-  useFindQuery<UseFindOneMatchQuery>({ ...props, route: 'match' });
+}: useFindQueryProps & { id: string }): UseQueryResult<MatchOne> =>
+  useFindQuery<MatchOne>({ ...props, route: 'match' });

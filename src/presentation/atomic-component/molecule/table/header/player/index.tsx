@@ -11,7 +11,7 @@ import type { Player } from 'domain/models';
 
 interface PlayerTableHeaderProps {
   headerCellWithCheckbox?: boolean;
-  items: Player[];
+  items?: Player[];
 }
 
 export const PlayerTableHeader: FC<PlayerTableHeaderProps> = ({
@@ -35,11 +35,11 @@ export const PlayerTableHeader: FC<PlayerTableHeaderProps> = ({
             align={'left'}
             title={
               <Checkbox
-                checked={items.every((player) => {
+                checked={items?.every((player) => {
                   return playerSelected[player.id];
                 })}
                 onChange={(event): void => {
-                  if (event.target.checked) dispatch(addPlayer(items));
+                  if (event.target.checked) dispatch(addPlayer(items ?? []));
                   else dispatch(removePlayer(items?.map((item) => item.id) ?? []));
                 }}
               />

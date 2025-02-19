@@ -1,18 +1,14 @@
 import { GoBack, TableTemplate } from 'presentation/atomic-component/atom';
 import { Link, useParams } from 'react-router-dom';
 import { NavigateNext } from '@mui/icons-material';
-import { Pagination } from 'presentation/atomic-component/molecule';
 import { TeamTableBody } from 'presentation/atomic-component/molecule/table/body/team';
 import { TeamTableHeader } from 'presentation/atomic-component/molecule/table/header';
 import { paths } from 'main/config';
 import { useAppSelector } from 'store';
 import { useFindOneMatchQuery } from 'infra/cache';
-import { usePagination } from 'data/hooks';
 import type { FC } from 'react';
 
 export const MatchDetailsContent: FC = () => {
-  const { handleChangePage, page } = usePagination();
-
   const { matchId } = useParams();
 
   const { matchFilter } = useAppSelector((state) => state.filter);
@@ -20,7 +16,6 @@ export const MatchDetailsContent: FC = () => {
   const matchQuery = useFindOneMatchQuery({
     id: matchId || '',
     limit: 9,
-    page,
     params: {
       endDate: matchFilter.date?.endDate,
       name: matchFilter.name,
@@ -29,8 +24,6 @@ export const MatchDetailsContent: FC = () => {
       startDate: matchFilter.date?.startDate
     }
   });
-
-  const matchTeam = matchQuery.data?.content?.matchTeam;
 
   return (
     <div className={'flex flex-col gap-8 tablet:gap-10'}>
@@ -59,14 +52,8 @@ export const MatchDetailsContent: FC = () => {
             </div>
 
             <TableTemplate
-              tableBody={<TeamTableBody items={matchTeam || []} />}
+              tableBody={<TeamTableBody items={matchQuery.data?.matchTeam || []} />}
               tableHeader={<TeamTableHeader />}
-            />
-
-            <Pagination
-              handleChangePage={handleChangePage}
-              page={page}
-              totalPages={matchQuery.data.totalPages}
             />
           </div>
         ) : null}

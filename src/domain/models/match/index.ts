@@ -24,11 +24,7 @@ export interface Match {
 
 export interface MatchOne {
   id: string;
-  name: string;
-  description: string;
   matchTeam: MatchTeam[];
-  type: MatchType;
-  createdAt: Date;
 }
 
 export interface MatchFilter {
@@ -41,8 +37,4 @@ export interface MatchFilter {
 
 export interface UseFindMatchQuery extends Pagination {
   content: Match[];
-}
-
-export interface UseFindOneMatchQuery extends Pagination {
-  content: MatchOne;
 }

@@ -34,6 +34,7 @@ export const apiPaths = {
   platform: '/platform',
   player: '/player',
   match: '/match',
+  matchTeam: '/match-team',
   user: '/user',
   favoriteUserFunctionality: '/favorite-user-functionality',
   functionality: '/functionality',

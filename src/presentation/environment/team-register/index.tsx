@@ -7,13 +7,14 @@ import { PlayerTableHeader } from 'presentation/atomic-component/molecule/table/
 import { useAppSelector } from 'store';
 import { useFindPlayerQuery } from 'infra/cache';
 import { usePagination } from 'data/hooks';
+import { useParams } from 'react-router-dom';
 import ImagePasteProcessor from 'presentation/atomic-component/molecule/image-paste';
 import type { FC } from 'react';
 
 export const TeamRegisterContent: FC = () => {
   const { handleChangePage, page } = usePagination();
 
-  // const { matchId } = useParams();
+  const { matchId } = useParams();
 
   const { playerFilter } = useAppSelector((state) => state.filter);
   const playerQuery = useFindPlayerQuery({
@@ -46,7 +47,13 @@ export const TeamRegisterContent: FC = () => {
               </div>
 
               <TableTemplate
-                tableBody={<PlayerTableBody items={playerQuery.data.content} rowWithCheckbox />}
+                tableBody={
+                  <PlayerTableBody
+                    items={playerQuery.data.content}
+                    matchId={matchId ?? ''}
+                    rowWithCheckbox
+                  />
+                }
                 tableHeader={
                   <PlayerTableHeader headerCellWithCheckbox items={playerQuery.data.content} />
                 }

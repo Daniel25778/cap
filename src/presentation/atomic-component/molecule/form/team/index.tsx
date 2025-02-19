@@ -1,51 +1,60 @@
-import { type FC, useEffect } from 'react';
 import { FormButton, LabelInput } from 'presentation/atomic-component/atom';
-import { validate } from 'main/utils';
-import type { MatchOne } from 'domain/models/match';
+import { useAppSelector } from 'store';
+import { useMatchTeam } from 'data/use-case';
+import type { FC } from 'react';
 
 interface TeamFormProps {
-  match?: MatchOne;
   closeModal: () => void;
+  matchId: string;
 }
 
-export const TeamForm: FC<TeamFormProps> = ({ closeModal, match }) => {
-  const { handleSubmit, onSubmit, register, errors, isSubmitting, setValue } = useMatchOne({
-    closeModal,
-    match
+export const TeamForm: FC<TeamFormProps> = ({ closeModal, matchId }) => {
+  const { playerSelected } = useAppSelector((state) => state.player);
+  const { handleSubmit, onSubmit, register, errors, isSubmitting } = useMatchTeam({
+    closeModal
   });
 
-  // const playerQuery = useFindPlayerQuery({});
-
-  // const { handleChangePage, page } = usePagination();
-
-  // const [playerSelected, setPlayerSelected] = useState<SelectValues | null>(
-  //   team?.type
-  //     ? {
-  //         label: team.type,
-  //         value: team.id
-  //       }
-  //     : null
-  // );
-
-  useEffect(() => {
-    if (match) setValue('name', team.name, validate);
-  }, [team]);
+  register('matchId', { value: matchId });
 
   return (
-    <>
-      <h2 className={'font-semibold text-white text-base'}>Cadastrar manualmente</h2>
+    <form className={'flex flex-col gap-4'} onSubmit={handleSubmit(onSubmit)}>
+      <LabelInput
+        error={!!errors.teams?.[0]?.position}
+        label={'Posição'}
+        placeholder={'Digite a posição do time'}
+        register={register('teams.0.position', { valueAsNumber: true })}
+        required
+        type={'number'}
+      />
 
-      <form className={'flex flex-col gap-4'} onSubmit={handleSubmit(onSubmit)}>
-        <LabelInput
-          error={!!errors.name}
-          label={'Posição'}
-          placeholder={'Digite a posição do time'}
-          register={register('name')}
-          required
-        />
+      {Object.entries(playerSelected).map(([key, value], index) => (
+        <div key={key} className={'flex items-center gap-6'}>
+          <h2
+            className={
+              'font-semibold w-[150px] text-white overflow-hidden text-ellipsis whitespace-nowrap'
+            }
+          >
+            {value.name}
+          </h2>
 
-        <FormButton disableRipple isSubmitting={isSubmitting} label={'Enviar'} />
-      </form>
-    </>
+          <input
+            type={'hidden'}
+            {...register(`teams.0.players.${index}.name`)}
+            value={value.name}
+          />
+
+          <LabelInput
+            error={!!errors?.teams?.[0]?.players?.[index]?.kill}
+            label={'Total de kills'}
+            placeholder={'Digite o total de kills do jogador'}
+            register={register(`teams.0.players.${index}.kill`)}
+            required
+            type={'number'}
+          />
+        </div>
+      ))}
+
+      <FormButton disableRipple isSubmitting={isSubmitting} label={'Enviar'} />
+    </form>
   );
 };
