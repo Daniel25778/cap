@@ -11,7 +11,7 @@ export interface PlayerTeam {
 export interface MatchTeam {
   id: string;
   position: number;
-  playerTeams: PlayerTeam[];
+  playerTeam: PlayerTeam[];
 }
 
 export interface Match {

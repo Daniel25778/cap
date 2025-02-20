@@ -1,27 +1,49 @@
 import { BodyCell } from 'presentation/atomic-component/atom';
 import { TableBody, TableRow } from '@mui/material';
-import { TranslateAction } from 'domain/enums/actionScheduler';
-import { formatDate } from 'main/utils';
+import { ThumbDownAlt, ThumbUp } from '@mui/icons-material';
 import type { FC } from 'react';
-import type { MatchOne } from 'domain/models/match';
-import type { UseQueryResult } from 'react-query';
+import type { PlayerTeam } from 'domain/models/match';
 
 interface PlayerActivedTableBodyProps {
-  query: UseQueryResult<MatchOne>;
+  playerTeam: PlayerTeam[];
 }
 
-export const PlayerActivedTableBody: FC<PlayerActivedTableBodyProps> = ({ query }) => {
+export const PlayerActivedTableBody: FC<PlayerActivedTableBodyProps> = ({ playerTeam }) => {
   return (
     <TableBody className={'relative'}>
-      {query?.data?.matchTeam.map((item) => (
+      {playerTeam?.map((item) => (
         <TableRow key={item.id} className={'cursor-pointer'} hover>
-          <BodyCell className={'font-medium line-clamp-2'} title={item.user.name} />
-          <BodyCell className={'font-medium line-clamp-2'} title={TranslateAction[item.action]} />
+          <BodyCell className={'font-medium line-clamp-2'} title={item.player.name} />
+          <BodyCell className={'font-medium line-clamp-2'} title={item.player.nickname} />
 
           <BodyCell
-            className={'font-medium line-clamp-2 capitalize'}
-            title={formatDate(item.createdAt, 'EEEE - dd/MM/yyyy HH:mm')}
+            align={'left'}
+            title={
+              item.player.isMember ? (
+                <ThumbUp className={'text-[#4eff37a8]'} />
+              ) : (
+                <ThumbDownAlt className={'text-[#ff0404e0]'} />
+              )
+            }
           />
+
+          <BodyCell
+            align={'left'}
+            title={
+              item.player.isOnGuild ? (
+                <ThumbUp className={'text-[#4eff37a8]'} />
+              ) : (
+                <ThumbDownAlt className={'text-[#ff0404e0]'} />
+              )
+            }
+          />
+
+          <BodyCell
+            align={'left'}
+            title={item.player.instagram ? item.player.instagram : 'Não possui'}
+          />
+
+          <BodyCell className={'font-medium line-clamp-2'} title={item.player.totalKills} />
         </TableRow>
       ))}
     </TableBody>
